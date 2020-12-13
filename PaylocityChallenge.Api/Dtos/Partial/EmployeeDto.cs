@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PaylocityChallenge.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,6 @@ namespace PaylocityChallenge.Api.Dtos.Partial
 {
     public class EmployeeDto : FamilyMemberDto
     {
-        public List<DependantDto> Dependents { get; set; }
+        public List<DependentDto> Dependents { get; set; }
     }
 }

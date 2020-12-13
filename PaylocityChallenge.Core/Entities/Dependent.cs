@@ -15,10 +15,10 @@ namespace PaylocityChallenge.Core.Entities
 
 
         public override decimal MemberYearlyBenefitsCost { get; }
-        public DependantRelation Relation { get; set; }
+        public DependentRelation Relation { get; set; }
     }
 
-    public enum DependantRelation
+    public enum DependentRelation
     {
         None = 0,
         Spouse = 1,

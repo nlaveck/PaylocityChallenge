@@ -1,24 +1,26 @@
 ﻿using PaylocityChallenge.Core.Entities;
 using PaylocityChallenge.Core.Entities.Abstract;
+using System;
 using System.Linq;
 
 namespace PaylocityChallenge.Core.Services
 {
-    public class PayrollService
+    public class PayrollService : IPayrollService
     {
         /*
-         * Calculates netpay and benefits for the employee
+         * Updates the employee in place to include the benefits cost
          */
         public void CalculatePay(Employee employee)
         {
-            employee.Pay.BenefitsCostAnnual = CalcuteYearlyMemberCosts(employee) + employee.Dependants.Aggregate(0M, (total, dependent) => total + CalcuteYearlyMemberCosts(dependent));
-            employee.Pay.BenefitsCostPerPaycheck = employee.Pay.BenefitsCostAnnual  / 26M;
-            employee.Pay.NetSalary = employee.Pay.GrossSalary - employee.Pay.BenefitsCostAnnual;
-            employee.Pay.NetPerPaycheck = employee.Pay.GrossPerPaycheck - employee.Pay.BenefitsCostPerPaycheck;
+            employee.Pay = new EmployeePay();
+            employee.Pay.BenefitsCostAnnual = CalcuteYearlyMemberCosts(employee) + employee.Dependents.Aggregate(0M, (total, dependent) => total + CalcuteYearlyMemberCosts(dependent));
+            var benfitsPaycheckUnrounded = employee.Pay.BenefitsCostAnnual / 26M;
+            //Rounding up to ensure benfits are fully covered by employee.  This would require more detail if it should be rounded up or down
+            employee.Pay.BenefitsCostPerPaycheck = Math.Round(benfitsPaycheckUnrounded, 2, MidpointRounding.ToPositiveInfinity);
         }
 
         /*
-         * Returns the family members cost
+         * Returns the family members benefits costs after discount
          */
         public decimal CalcuteYearlyMemberCosts(FamilyMember member)
         {
@@ -26,14 +28,15 @@ namespace PaylocityChallenge.Core.Services
         }
 
         /*
-         * Family members get a 10% discount on their benefit costs if their name starts with 'A'
+         * Checks the family members name to see if a 10% discount applies to them
          */
         public decimal CalculateMemberDiscount(FamilyMember member)
         {
-            if (member.FirstName.StartsWith('A'))
+            if (member.FirstName.ToUpper().StartsWith('A'))
             {
                 return .10M;
-            } else
+            }
+            else
             {
                 return 0M;
             }

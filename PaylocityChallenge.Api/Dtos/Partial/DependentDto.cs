@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PaylocityChallenge.Api.Dtos.Partial
 {
-    public class DependantDto : FamilyMemberDto
+    public class DependentDto : FamilyMemberDto
     {
         public RelationType Relation;
     }

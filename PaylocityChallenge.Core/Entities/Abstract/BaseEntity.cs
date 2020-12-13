@@ -4,8 +4,8 @@ using System.Text;
 
 namespace PaylocityChallenge.Core.Entities.Abstract
 {
-    class BaseEntity
+    public class BaseEntity
     {
-        public Guid { get; set; }
+        public Guid Id { get; set; }
     }
 }

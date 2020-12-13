@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaylocityChallenge.Api", "PaylocityChallenge.Api\PaylocityChallenge.Api.csproj", "{FB3DAE56-CFBA-47E1-B17F-12E53E8DE730}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE12B080-7916-4A6A-B66F-F0E806AA17A5} = {BE12B080-7916-4A6A-B66F-F0E806AA17A5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaylocityChallenge.Core", "PaylocityChallenge.Core\PaylocityChallenge.Core.csproj", "{F35A7ACB-D35A-4740-9DB9-555C7A229789}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaylocityChallenge.Core", "PaylocityChallenge.Core\PaylocityChallenge.Core.csproj", "{F35A7ACB-D35A-4740-9DB9-555C7A229789}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaylocityChallenge.Infrastructure", "PaylocityChallenge.Infrastructure\PaylocityChallenge.Infrastructure.csproj", "{BE12B080-7916-4A6A-B66F-F0E806AA17A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{F35A7ACB-D35A-4740-9DB9-555C7A229789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F35A7ACB-D35A-4740-9DB9-555C7A229789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F35A7ACB-D35A-4740-9DB9-555C7A229789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE12B080-7916-4A6A-B66F-F0E806AA17A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE12B080-7916-4A6A-B66F-F0E806AA17A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE12B080-7916-4A6A-B66F-F0E806AA17A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE12B080-7916-4A6A-B66F-F0E806AA17A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

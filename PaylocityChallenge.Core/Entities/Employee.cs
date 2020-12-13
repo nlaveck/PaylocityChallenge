@@ -12,10 +12,9 @@ namespace PaylocityChallenge.Core.Entities
         public Employee()
         {
             MemberYearlyBenefitsCost = BENEFITS_PACKAGE_COST;
-            Pay = new EmployeePay();
         }
 
-        public List<Dependent> Dependants { get; set; }
+        public List<Dependent> Dependents { get; set; }
         public override decimal MemberYearlyBenefitsCost { get; }
         public EmployeePay Pay { get; set; }
     }

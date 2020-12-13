@@ -1,37 +1,60 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
+using PaylocityChallenge.Api.Dtos.Partial;
+using PaylocityChallenge.Api.Dtos.Requests;
+using PaylocityChallenge.Api.Dtos.Responses;
+using PaylocityChallenge.Core.Entities;
+using PaylocityChallenge.Core.Services;
+using PaylocityChallenge.Infrastructure.Repositories;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PaylocityChallenge.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EnmployeeController : ControllerBase
+    public class EnmployeesController : ControllerBase
     {
 
-        private readonly ILogger<EnmployeeController> _logger;
+        private readonly IMapper _mapper;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public EnmployeeController(ILogger<EnmployeeController> logger)
+        public EnmployeesController(IMapper mapper, IEmployeeRepository employeeRepository)
         {
-            _logger = logger;
+            _mapper = mapper;
+            _employeeRepository = employeeRepository;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPost("preview")]
+        public PreviewEmployeeCostsResponse PreviewCosts([FromServices] IPayrollService payrollService, [FromBody] PreviewEmployeeCostRequest request)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var response = new PreviewEmployeeCostsResponse();
+            var employee = _mapper.Map<Employee>(request.Employee);
+            payrollService.CalculatePay(employee);
+            response.EmployeePay = _mapper.Map<EmployeePayDto>(employee.Pay);
+            return response;
         }
 
+        [HttpPost("create")]
+        public async Task<PreviewEmployeeCostsResponse> AddEmployee([FromServices] IPayrollService payrollService, [FromBody] PreviewEmployeeCostRequest request)
+        {
+            var response = new PreviewEmployeeCostsResponse();
+            var employee = _mapper.Map<Employee>(request.Employee);
+            payrollService.CalculatePay(employee);
+            await _employeeRepository.Add(employee);
 
+            response.EmployeePay = _mapper.Map<EmployeePayDto>(employee.Pay);
+            return response;
+        }
+
+        [HttpGet("index")]
+        public async Task<EmployeeListingResponse> GetEmployees()
+        {
+            var response = new EmployeeListingResponse();
+            var employees = await _employeeRepository.GetEmployeeListingAsync();
+            response.Employees = _mapper.Map<List<EmployeeWithPayDto>>(employees);
+            return response;
+        }
     }
 }

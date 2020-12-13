@@ -11,10 +11,9 @@ namespace PaylocityChallenge.Core.Entities
             GrossSalary = GrossPerPaycheck * 26M;
         }
         public decimal GrossSalary { get; set; }
-        public decimal NetSalary { get; set; }
         public decimal GrossPerPaycheck { get; set; }
-        public decimal NetPerPaycheck { get; set; }
         public decimal BenefitsCostAnnual { get; set; }
         public decimal BenefitsCostPerPaycheck { get; set; }
+        public decimal BenefitsAnnualSurplus { get; set; }
     }
 }
