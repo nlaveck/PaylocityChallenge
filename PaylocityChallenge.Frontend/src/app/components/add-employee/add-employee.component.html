@@ -1,0 +1,63 @@
+<mat-card>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Employee Information</ng-template>
+        <div fxLaout="row" fxLayoutGap="1rem">
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="First Name" formControlName="firstName" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Last Name" formControlName="lastName" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Dependent Information">
+      <form [formGroup]="secondFormGroup">
+        <h2 *ngIf="getDependentsArray().length == 0">Click "Add Depenendent" to add a dependent to the benefits plan.</h2>
+        <div formArrayName="dependents"
+          *ngFor="let item of getDependentsArray().controls; let i = index;">
+          <div [formGroupName]="i"  fxLaout="row" fxLayoutGap="1rem">
+            <mat-form-field>
+              <mat-label>Relation</mat-label>
+              <mat-select formControlName="relation">
+                <mat-option *ngFor="let option of dependentRelations" [value]="option.value">{{ option.text }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>First Name</mat-label>
+              <input matInput placeholder="First Name" formControlName="firstName" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+              <input matInput placeholder="Last Name" formControlName="lastName" required>
+            </mat-form-field>
+            <button type="button" mat-icon-button (click)=removeDependent(i)>
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+        <button type="button" mat-stroked-button color="primary" (click)="addDependent()">Add Dependent</button>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" (click)=previewCosts()>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Review Costs</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+</mat-card>
