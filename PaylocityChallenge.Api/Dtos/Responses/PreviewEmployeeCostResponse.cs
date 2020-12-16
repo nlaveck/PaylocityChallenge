@@ -4,6 +4,7 @@ namespace PaylocityChallenge.Api.Dtos.Responses
 {
     public class PreviewEmployeeCostsResponse
     {
-        public EmployeePayDto EmployeePay { get; set; }
+        public EmployeePayDto AnnualPay { get; set; }
+        public EmployeePayDto PaycheckPay { get; set; }
     }
 }

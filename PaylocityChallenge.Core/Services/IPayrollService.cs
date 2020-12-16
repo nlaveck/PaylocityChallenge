@@ -7,6 +7,5 @@ namespace PaylocityChallenge.Core.Services
     {
         decimal CalculateMemberDiscount(FamilyMember member);
         void CalculatePay(Employee employee);
-        decimal CalcuteYearlyMemberCosts(FamilyMember member);
     }
 }

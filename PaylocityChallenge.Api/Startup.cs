@@ -59,6 +59,7 @@ namespace PaylocityChallenge.Api
 
             app.UseRouting();
 
+            app.UseCors(c => c.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

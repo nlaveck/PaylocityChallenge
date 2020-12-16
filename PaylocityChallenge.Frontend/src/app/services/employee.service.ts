@@ -1,0 +1,21 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { PreviewEmployeeCostsRequest } from 'src/dtos/requests/preview-employee-costs-request';
+import { PreviewEmployeeCostsResponse } from 'src/dtos/responses/preview-employee-costs-response';
+import { environment } from 'src/environments/environment'
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EmployeeService {
+
+  baseUrl = environment.apiUrl + '/employees/';
+
+  constructor(private httpClient: HttpClient) {
+
+  }
+
+  public previewCosts(request: PreviewEmployeeCostsRequest) : Promise<PreviewEmployeeCostsResponse>{
+    return this.httpClient.post<PreviewEmployeeCostsResponse>(this.baseUrl + 'preview', request).toPromise();
+  }
+}

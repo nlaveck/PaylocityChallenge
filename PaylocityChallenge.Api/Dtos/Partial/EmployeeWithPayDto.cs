@@ -7,6 +7,6 @@ namespace PaylocityChallenge.Api.Dtos.Partial
 {
     public class EmployeeWithPayDto : FamilyMemberDto
     {
-        public EmployeePayDto Pay { get; set; }
+        public EmployeePayDto AnnualPay { get; set; }
     }
 }

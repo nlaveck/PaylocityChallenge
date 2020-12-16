@@ -7,3 +7,37 @@ mat-card {
 button {
   margin: 0 8px 16px 0;
 }
+
+.payroll-review {
+  padding-top: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  mat-list {
+    margin: 0 auto;
+    mat-divider {
+      position: unset;
+    }
+    mat-list-item {
+      justify-content: space-between;
+
+      div {
+        width: 100%;
+        .bold {
+          font-weight: bold;
+        }
+        span {
+          float: right;
+        }
+      }
+    }
+  }
+}
+
+.add-employee-btn {
+  width: 400px;
+  margin: 0 auto;
+  display:block;
+  padding: 8px;
+  font-size: 1rem;
+  margin-top: 8px;
+}

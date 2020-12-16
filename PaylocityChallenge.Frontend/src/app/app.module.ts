@@ -15,6 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { HttpClientModule } from '@angular/common/http';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
@@ -35,6 +39,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatOptionModule,
     MatSelectModule,
     MatIconModule,
+    MatButtonToggleModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

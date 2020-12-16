@@ -20,7 +20,7 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Dependent Information">
       <form [formGroup]="secondFormGroup">
-        <h2 *ngIf="getDependentsArray().length == 0">Click "Add Depenendent" to add a dependent to the benefits plan.</h2>
+        <h2 *ngIf="getDependentsArray().length == 0">Click "Add Dependent" to add a dependent to the benefits plan.</h2>
         <div formArrayName="dependents"
           *ngFor="let item of getDependentsArray().controls; let i = index;">
           <div [formGroupName]="i"  fxLaout="row" fxLayoutGap="1rem">
@@ -46,14 +46,31 @@
         <button type="button" mat-stroked-button color="primary" (click)="addDependent()">Add Dependent</button>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-raised-button color="primary" (click)=previewCosts()>Next</button>
+          <button mat-raised-button color="primary" (click)=previewCosts() matStepperNext>Review</button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Review Costs</ng-template>
-      <p>You are now done.</p>
+
       <div>
+        <div class="payroll-review">
+          <mat-button-toggle-group  #group="matButtonToggleGroup" aria-label="Pay Frequency">
+            <mat-button-toggle value="annualPay" checked>Annual Pay</mat-button-toggle>
+            <mat-button-toggle value="paycheckPay">Paycheck Pay</mat-button-toggle>
+          </mat-button-toggle-group>
+          <mat-list *ngIf="preview">
+            <mat-list-item role="listitem"><div><label>Gross Income</label><span>{{ preview[group.value].grossIncome | currency }}</span></div></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item role="listitem"><div><label>Benfits Premium</label><span>{{ preview[group.value].benefitsPremium | currency }}</span></div></mat-list-item>
+            <mat-list-item role="listitem"><div><label>Discount</label><span>{{ preview[group.value].benefitsDiscount | currency }}</span></div></mat-list-item>
+            <mat-list-item role="listitem"><div><label>Benefits Subtotal</label><span>{{ preview[group.value].benefitsSubtotal | currency }}</span></div></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="bold" role="listitem"><div><label>Taxable Income</label><span class="bold">{{ preview[group.value].taxableIncome | currency }}</span></div></mat-list-item>
+          </mat-list>
+        </div>
+
+        <button mat-stroked-button class="add-employee-btn" color="primary">Add Employee</button>
         <button mat-button matStepperPrevious>Back</button>
         <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
       </div>

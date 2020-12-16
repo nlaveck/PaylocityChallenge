@@ -17,7 +17,10 @@ namespace PaylocityChallenge.Infrastructure.Repositories
 
         public async Task<List<Employee>> GetEmployeeListingAsync()
         {
-            return await _context.Employees.Include(e => e.Pay).ToListAsync();
+            return await _context.Employees
+                .Include(e => e.PaycheckPay)
+                .Include(e => e.AnnualPay)
+                .ToListAsync();
         }
 
         public async Task Add(Employee employee)

@@ -14,13 +14,13 @@ namespace PaylocityChallenge.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EnmployeesController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
 
         private readonly IMapper _mapper;
         private readonly IEmployeeRepository _employeeRepository;
 
-        public EnmployeesController(IMapper mapper, IEmployeeRepository employeeRepository)
+        public EmployeesController(IMapper mapper, IEmployeeRepository employeeRepository)
         {
             _mapper = mapper;
             _employeeRepository = employeeRepository;
@@ -32,7 +32,8 @@ namespace PaylocityChallenge.Api.Controllers
             var response = new PreviewEmployeeCostsResponse();
             var employee = _mapper.Map<Employee>(request.Employee);
             payrollService.CalculatePay(employee);
-            response.EmployeePay = _mapper.Map<EmployeePayDto>(employee.Pay);
+            response.AnnualPay = _mapper.Map<EmployeePayDto>(employee.AnnualPay);
+            response.PaycheckPay = _mapper.Map<EmployeePayDto>(employee.PaycheckPay);
             return response;
         }
 
@@ -44,7 +45,8 @@ namespace PaylocityChallenge.Api.Controllers
             payrollService.CalculatePay(employee);
             await _employeeRepository.Add(employee);
 
-            response.EmployeePay = _mapper.Map<EmployeePayDto>(employee.Pay);
+            response.AnnualPay = _mapper.Map<EmployeePayDto>(employee.AnnualPay);
+            response.PaycheckPay = _mapper.Map<EmployeePayDto>(employee.PaycheckPay);
             return response;
         }
 

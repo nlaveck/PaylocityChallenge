@@ -1,6 +1,7 @@
 ﻿using PaylocityChallenge.Core.Entities.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PaylocityChallenge.Core.Entities
@@ -12,8 +13,6 @@ namespace PaylocityChallenge.Core.Entities
         {
             MemberYearlyBenefitsCost = BENEFITS_PACKAGE_COST;
         }
-
-
         public override decimal MemberYearlyBenefitsCost { get; }
         public DependentRelation Relation { get; set; }
     }

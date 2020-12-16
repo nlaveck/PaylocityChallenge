@@ -7,11 +7,10 @@ namespace PaylocityChallenge.Api.Dtos.Partial
 {
     public class EmployeePayDto
     {
-        public decimal GrossSalary { get; set; }
-        //public decimal NetSalary { get; set; }
-        public decimal GrossPerPaycheck { get; set; }
-        //public decimal NetPerPaycheck { get; set; }e
-        public decimal BenefitsCostAnnual { get; set; }
-        public decimal BenefitsCostPerPaycheck { get; set; }
+        public decimal GrossIncome { get; set; }
+        public decimal BenefitsPremium { get; set; }
+        public decimal BenefitsDiscount { get; set; }
+        public decimal BenefitsSubtotal { get; set; }
+        public decimal TaxableIncome { get; set; }
     }
 }
