@@ -6,6 +6,6 @@ namespace PaylocityChallenge.Core.Entities.Abstract
 {
     public class BaseEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

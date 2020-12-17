@@ -8,5 +8,7 @@ namespace PaylocityChallenge.Infrastructure.Repositories
     {
         Task<List<Employee>> GetEmployeeListingAsync();
         Task Add(Employee employee);
+
+        Task Remove(int id);
     }
 }

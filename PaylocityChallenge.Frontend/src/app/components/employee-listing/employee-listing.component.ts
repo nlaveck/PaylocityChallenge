@@ -1,6 +1,7 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { EmployeeSummaryDto } from 'src/dtos/partial/employee-summary-dto';
 
@@ -10,10 +11,11 @@ import { EmployeeSummaryDto } from 'src/dtos/partial/employee-summary-dto';
   styleUrls: ['./employee-listing.component.scss']
 })
 
-export class EmployeeListingComponent implements OnInit {
 
+export class EmployeeListingComponent implements OnInit {
+  @ViewChild(MatTable) table!: MatTable<EmployeeSummaryDto>;
   tableData: Array<EmployeeSummaryDto> = null;
-  displayedColumns = ['firstName', 'lastName', 'annualBenefitsPremium', 'annualBenefitsDiscount', 'annualBenfitsSubtotal', 'annualTaxableIncome'];
+  displayedColumns = ['lastName', 'firstName', 'annualBenefitsPremium', 'annualBenefitsDiscount', 'annualBenfitsSubtotal', 'annualTaxableIncome', 'options'];
 
   constructor(private employeeService: EmployeeService) { }
 
@@ -22,7 +24,18 @@ export class EmployeeListingComponent implements OnInit {
     this.tableData = response.employees;
   }
 
-  getTotal(column: string) {
-    return this.tableData.reduce((acc, val) => acc + val[column], 0);
+  getTotal(columnKey: string) {
+    return this.tableData.reduce((acc, val) => acc + val[columnKey], 0);
+  }
+  async remove(id: number, index: number) {
+    try {
+      await this.employeeService.removeEmpoloyee(id);
+    } catch(ex) {
+      console.error("Failed to remove employee!");
+      console.error(ex.message);
+    }
+
+    this.tableData.splice(index, 1);
+    this.table.renderRows();
   }
 }

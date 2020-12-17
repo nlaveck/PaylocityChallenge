@@ -28,4 +28,8 @@ export class EmployeeService {
   public getEmployees(): Promise<EmployeeListingResponse> {
     return this.httpClient.get<EmployeeListingResponse>(this.baseUrl + 'index').toPromise();
   }
+
+  public removeEmpoloyee(id: number): Promise<void> {
+    return this.httpClient.delete<void>(this.baseUrl + id).toPromise();
+  }
 }

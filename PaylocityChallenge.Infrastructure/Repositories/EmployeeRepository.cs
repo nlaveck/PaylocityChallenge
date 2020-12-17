@@ -28,5 +28,13 @@ namespace PaylocityChallenge.Infrastructure.Repositories
             _context.Add(employee);
             await _context.SaveChangesAsync();
         }
+
+        public async Task Remove(int id)
+        {
+            var employee = new Employee{ Id = id };
+            _context.Employees.Attach(employee);
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+        }
     }
 }

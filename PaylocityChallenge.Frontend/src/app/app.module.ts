@@ -19,6 +19,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 import { EmployeeListingComponent } from './components/employee-listing/employee-listing.component';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { EmployeeListingComponent } from './components/employee-listing/employee
     MatIconModule,
     MatButtonToggleModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

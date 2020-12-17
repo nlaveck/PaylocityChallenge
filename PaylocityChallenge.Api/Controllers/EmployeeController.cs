@@ -58,5 +58,12 @@ namespace PaylocityChallenge.Api.Controllers
             response.Employees = _mapper.Map<List<EmployeeSummaryDto>>(employees);
             return response;
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> RemoveEmployee(int id)
+        {
+            await _employeeRepository.Remove(id);
+            return NoContent();
+        }
     }
 }

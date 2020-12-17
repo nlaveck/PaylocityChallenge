@@ -7,6 +7,7 @@ namespace PaylocityChallenge.Api.Dtos.Partial
 {
     public class EmployeeSummaryDto : FamilyMemberDto
     {
+        public int Id { get; set; }
         public decimal AnnualBenefitsPremium { get; set; }
         public decimal AnnualBenefitsDiscount { get; set; }
         public decimal AnnualBenefitsSubtotal { get; set; }

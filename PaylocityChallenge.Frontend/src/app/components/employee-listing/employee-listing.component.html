@@ -5,19 +5,20 @@
   <h1 class="title">Annual Employee Costs</h1>
 
   <mat-card *ngIf="tableData && tableData.length === 0">
-    <h3>No Employees! Click the "Plus" button in the top right to add an employee.</h3>
+    <h3 class="bold">No Employees! Click the "Plus" button in the top right to add an employee.</h3>
   </mat-card>
   <table *ngIf="tableData && tableData.length > 0" mat-table [dataSource]="tableData" class="mat-elevation-z2">
+
     <ng-container matColumnDef="firstName">
       <th mat-header-cell *matHeaderCellDef>First Name</th>
       <td mat-cell *matCellDef="let element"> {{element.firstName}}</td>
-      <td class="bold" mat-footer-cell *matFooterCellDef>Totals</td>
+      <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
     <ng-container matColumnDef="lastName">
       <th mat-header-cell *matHeaderCellDef>Last Name</th>
       <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-      <td mat-footer-cell *matFooterCellDef></td>
+      <td class="bold" mat-footer-cell *matFooterCellDef>Totals</td>
     </ng-container>
 
     <ng-container matColumnDef="annualBenefitsPremium">
@@ -41,6 +42,20 @@
     <ng-container matColumnDef="annualTaxableIncome">
       <th mat-header-cell *matHeaderCellDef>Taxable Income</th>
       <td mat-cell *matCellDef="let element"> {{element.annualTaxableIncome | currency}} </td>
+      <td class="bold" mat-footer-cell *matFooterCellDef>{{ getTotal('annualTaxableIncome') | currency }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element; let idx=index">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="remove(element.id, idx)">Delete</button>
+        </mat-menu>
+      </td>
       <td class="bold" mat-footer-cell *matFooterCellDef>{{ getTotal('annualTaxableIncome') | currency }}</td>
     </ng-container>
 
