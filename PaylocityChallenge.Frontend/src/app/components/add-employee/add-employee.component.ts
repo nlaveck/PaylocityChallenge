@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { DependentRelationshipType } from 'src/dtos/partial/dependent-dto';
 import { EmployeeDto } from 'src/dtos/partial/employee-dto';
 import { PreviewEmployeeCostsRequest } from 'src/dtos/requests/preview-employee-costs-request';
+import { SaveEmployeeRequest } from 'src/dtos/requests/save-employee-request';
 import { PreviewEmployeeCostsResponse } from 'src/dtos/responses/preview-employee-costs-response';
 
 /**
@@ -23,7 +25,9 @@ export class AddEmployeeComponent implements OnInit {
     {text: 'Spouse', value: DependentRelationshipType.Spouse},
     {text: 'Child', value: DependentRelationshipType.Child}
   ];
-  constructor(private _formBuilder: FormBuilder, private employeeService: EmployeeService) {}
+  constructor(private _formBuilder: FormBuilder,
+    private employeeService: EmployeeService,
+    private router: Router) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -54,11 +58,27 @@ export class AddEmployeeComponent implements OnInit {
 
   async previewCosts() {
     if(this.firstFormGroup.valid && this.secondFormGroup.valid) {
-      var request = {
+      const request = {
         employee: {...this.firstFormGroup.value, ...this.secondFormGroup.value }
       } as PreviewEmployeeCostsRequest;
-      console.log(request);
       this.preview = await this.employeeService.previewCosts(request);
+    }
+  }
+
+  async saveEmployee(event: MouseEvent) {
+    const button = event.target as HTMLButtonElement;
+    button.disabled = true;
+    if(this.firstFormGroup.valid && this.secondFormGroup.valid) {
+      const request = {
+        employee: {...this.firstFormGroup.value, ...this.secondFormGroup.value }
+      } as SaveEmployeeRequest;
+      try {
+        await this.employeeService.save(request)
+      } catch (ex) {
+        console.error(ex.message);
+        button.disabled = false;
+      }
+      this.router.navigate(['..']);
     }
   }
 }

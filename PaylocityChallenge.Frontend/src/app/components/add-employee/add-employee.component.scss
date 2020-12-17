@@ -27,6 +27,10 @@ button {
         }
         span {
           float: right;
+          &.discounted {
+            color: lightgreen;
+            font-weight: bold;
+          }
         }
       }
     }

@@ -27,7 +27,7 @@ namespace PaylocityChallenge.Api.Controllers
         }
 
         [HttpPost("preview")]
-        public PreviewEmployeeCostsResponse PreviewCosts([FromServices] IPayrollService payrollService, [FromBody] PreviewEmployeeCostRequest request)
+        public ActionResult<PreviewEmployeeCostsResponse> PreviewCosts([FromServices] IPayrollService payrollService, [FromBody] PreviewEmployeeCostRequest request)
         {
             var response = new PreviewEmployeeCostsResponse();
             var employee = _mapper.Map<Employee>(request.Employee);
@@ -38,7 +38,7 @@ namespace PaylocityChallenge.Api.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<PreviewEmployeeCostsResponse> AddEmployee([FromServices] IPayrollService payrollService, [FromBody] PreviewEmployeeCostRequest request)
+        public async Task<IActionResult> Save([FromServices] IPayrollService payrollService, [FromBody] PreviewEmployeeCostRequest request)
         {
             var response = new PreviewEmployeeCostsResponse();
             var employee = _mapper.Map<Employee>(request.Employee);
@@ -47,7 +47,7 @@ namespace PaylocityChallenge.Api.Controllers
 
             response.AnnualPay = _mapper.Map<EmployeePayDto>(employee.AnnualPay);
             response.PaycheckPay = _mapper.Map<EmployeePayDto>(employee.PaycheckPay);
-            return response;
+            return NoContent();
         }
 
         [HttpGet("index")]
@@ -55,7 +55,7 @@ namespace PaylocityChallenge.Api.Controllers
         {
             var response = new EmployeeListingResponse();
             var employees = await _employeeRepository.GetEmployeeListingAsync();
-            response.Employees = _mapper.Map<List<EmployeeWithPayDto>>(employees);
+            response.Employees = _mapper.Map<List<EmployeeSummaryDto>>(employees);
             return response;
         }
     }

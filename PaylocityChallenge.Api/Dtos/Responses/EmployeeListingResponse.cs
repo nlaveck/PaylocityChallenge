@@ -8,6 +8,6 @@ namespace PaylocityChallenge.Api.Dtos.Responses
 {
     public class EmployeeListingResponse
     {
-        public List<EmployeeWithPayDto> Employees { get; set; }
+        public List<EmployeeSummaryDto> Employees { get; set; }
     }
 }

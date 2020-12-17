@@ -18,11 +18,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { EmployeeListingComponent } from './components/employee-listing/employee-listing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddEmployeeComponent,
+    EmployeeListingComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatButtonToggleModule,
     MatListModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

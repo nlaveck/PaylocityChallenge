@@ -1,4 +1,5 @@
 <mat-card>
+  <h1>Benefits Payout</h1>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -63,14 +64,14 @@
             <mat-list-item role="listitem"><div><label>Gross Income</label><span>{{ preview[group.value].grossIncome | currency }}</span></div></mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item role="listitem"><div><label>Benfits Premium</label><span>{{ preview[group.value].benefitsPremium | currency }}</span></div></mat-list-item>
-            <mat-list-item role="listitem"><div><label>Discount</label><span>{{ preview[group.value].benefitsDiscount | currency }}</span></div></mat-list-item>
+            <mat-list-item role="listitem"><div><label>Discount</label><span [class.discounted]="preview[group.value].benefitsDiscount > 0">{{ preview[group.value].benefitsDiscount | currency }}</span></div></mat-list-item>
             <mat-list-item role="listitem"><div><label>Benefits Subtotal</label><span>{{ preview[group.value].benefitsSubtotal | currency }}</span></div></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item class="bold" role="listitem"><div><label>Taxable Income</label><span class="bold">{{ preview[group.value].taxableIncome | currency }}</span></div></mat-list-item>
+            <mat-list-item role="listitem"><div><label class="bold">Taxable Income</label><span class="bold">{{ preview[group.value].taxableIncome | currency }}</span></div></mat-list-item>
           </mat-list>
         </div>
 
-        <button mat-stroked-button class="add-employee-btn" color="primary">Add Employee</button>
+        <button mat-stroked-button class="add-employee-btn" color="primary" (click)="saveEmployee($event)">Add Employee</button>
         <button mat-button matStepperPrevious>Back</button>
         <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
       </div>

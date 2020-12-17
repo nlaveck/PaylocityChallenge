@@ -1,0 +1,53 @@
+<div class="page-wrapper">
+  <button routerLink="/add-employee" mat-mini-fab color="primary" aria-label="Add Employee">
+    <mat-icon>add</mat-icon>
+  </button>
+  <h1 class="title">Annual Employee Costs</h1>
+
+  <mat-card *ngIf="tableData && tableData.length === 0">
+    <h3>No Employees! Click the "Plus" button in the top right to add an employee.</h3>
+  </mat-card>
+  <table *ngIf="tableData && tableData.length > 0" mat-table [dataSource]="tableData" class="mat-elevation-z2">
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>First Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}}</td>
+      <td class="bold" mat-footer-cell *matFooterCellDef>Totals</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>Last Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="annualBenefitsPremium">
+      <th mat-header-cell *matHeaderCellDef>Benefits Premium</th>
+      <td mat-cell *matCellDef="let element"> {{element.annualBenefitsPremium | currency}} </td>
+      <td class="bold" mat-footer-cell *matFooterCellDef>{{ getTotal('annualBenefitsPremium') | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="annualBenefitsDiscount">
+      <th mat-header-cell *matHeaderCellDef>Benfits Discount</th>
+      <td mat-cell *matCellDef="let element"> {{element.annualBenefitsDiscount | currency}} </td>
+      <td class="bold" mat-footer-cell *matFooterCellDef>{{ getTotal('annualBenefitsDiscount') | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="annualBenfitsSubtotal">
+      <th mat-header-cell *matHeaderCellDef>Benfits Subtotal</th>
+      <td mat-cell *matCellDef="let element"> {{element.annualBenefitsSubtotal | currency}} </td>
+      <td class="bold" mat-footer-cell *matFooterCellDef>{{ getTotal('annualBenefitsSubtotal') | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="annualTaxableIncome">
+      <th mat-header-cell *matHeaderCellDef>Taxable Income</th>
+      <td mat-cell *matCellDef="let element"> {{element.annualTaxableIncome | currency}} </td>
+      <td class="bold" mat-footer-cell *matFooterCellDef>{{ getTotal('annualTaxableIncome') | currency }}</td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+</div>
+

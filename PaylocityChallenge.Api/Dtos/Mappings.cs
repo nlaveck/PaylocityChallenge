@@ -11,7 +11,11 @@ namespace PaylocityChallenge.Api.Dtos
             CreateMap<Dependent, DependentDto>().ReverseMap();
             CreateMap<EmployeePay, EmployeePayDto>().ReverseMap();
             CreateMap<Employee,EmployeeDto>().ReverseMap();
-            CreateMap<Employee, EmployeeWithPayDto>().ReverseMap();
+            CreateMap<Employee, EmployeeSummaryDto>()
+                .ForMember(dest => dest.AnnualBenefitsDiscount, opt => opt.MapFrom(src => src.AnnualPay.BenefitsDiscount))
+                .ForMember(dest => dest.AnnualBenefitsPremium, opt => opt.MapFrom(src => src.AnnualPay.BenefitsPremium))
+                .ForMember(dest => dest.AnnualBenefitsSubtotal, opt => opt.MapFrom(src => src.AnnualPay.BenefitsSubtotal))
+                .ForMember(dest => dest.AnnualTaxableIncome, opt => opt.MapFrom(src => src.AnnualPay.TaxableIncome));
         }  
     }
 }
