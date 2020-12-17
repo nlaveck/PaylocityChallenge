@@ -91,5 +91,35 @@ namespace PaylocityChallenge.Api.Controllers
             await _employeeRepository.Remove(id);
             return NoContent();
         }
+
+        /// <summary>
+        /// Gets the employee
+        /// </summary>
+        /// <param name="id">The id of the employee</param>
+        /// <returns>204</returns>
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<EmployeeResponse>> GetEmployee(int id)
+        {
+            var employee = await _employeeRepository.Get(id);
+            var response = _mapper.Map<EmployeeResponse>(employee);
+            return response;
+        }
+
+        /// <summary>
+        /// Updates the employee
+        /// </summary>
+        /// <param name="id">The id of the employee</param>
+        /// <param name="payrollService"></param>
+        /// <param name="request"></param>
+        /// <returns>204</returns>
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<EmployeeResponse>> UpdateEmployee(int id, [FromServices] IPayrollService payrollService, [FromBody] SaveEmployeeRequest request)
+        {
+            var employee = await _employeeRepository.GetWithPay(id);
+            _mapper.Map(request.Employee, employee);
+            payrollService.CalculatePay(employee);
+            await _employeeRepository.SaveChanges();
+            return NoContent();
+        }
     }
 }

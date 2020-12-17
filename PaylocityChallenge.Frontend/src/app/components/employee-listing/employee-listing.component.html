@@ -54,6 +54,7 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="remove(element.id, idx)">Delete</button>
+          <button mat-menu-item [routerLink]="['edit-employee', element.id]">Edit</button>
         </mat-menu>
       </td>
       <td class="bold" mat-footer-cell *matFooterCellDef>{{ getTotal('annualTaxableIncome') | currency }}</td>

@@ -10,5 +10,10 @@ namespace PaylocityChallenge.Infrastructure.Repositories
         Task Add(Employee employee);
 
         Task Remove(int id);
+
+        Task<Employee> Get(int id);
+
+        Task<Employee> GetWithPay(int id);
+        Task SaveChanges();
     }
 }

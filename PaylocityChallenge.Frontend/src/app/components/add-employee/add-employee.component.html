@@ -71,7 +71,7 @@
           </mat-list>
         </div>
 
-        <button mat-stroked-button class="add-employee-btn" color="primary" (click)="saveEmployee($event)">Add Employee</button>
+        <button mat-stroked-button class="add-employee-btn" color="primary" (click)="saveEmployee($event)">{{isEdit ? 'Update Employee' : 'Add Employee'}}</button>
         <button mat-button matStepperPrevious>Back</button>
         <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
       </div>

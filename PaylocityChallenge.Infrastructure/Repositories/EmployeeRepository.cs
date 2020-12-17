@@ -36,5 +36,20 @@ namespace PaylocityChallenge.Infrastructure.Repositories
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Employee> Get(int id)
+        {
+            return await _context.Employees.Include(e => e.Dependents).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<Employee> GetWithPay(int id)
+        {
+            return await _context.Employees.Include(e => e.Dependents).Include(e => e.PaycheckPay).Include(e => e.AnnualPay).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

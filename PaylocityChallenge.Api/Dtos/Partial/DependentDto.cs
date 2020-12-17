@@ -6,7 +6,7 @@ namespace PaylocityChallenge.Api.Dtos.Partial
 {
     public class DependentDto : FamilyMemberDto
     {
-        public RelationType Relation;
+        public RelationType Relation { get; set; }
     }
 
     public enum RelationType {

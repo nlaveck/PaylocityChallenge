@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { DependentRelationshipType } from 'src/dtos/partial/dependent-dto';
+import { DependentDto, DependentRelationshipType } from 'src/dtos/partial/dependent-dto';
 import { EmployeeDto } from 'src/dtos/partial/employee-dto';
 import { PreviewEmployeeCostsRequest } from 'src/dtos/requests/preview-employee-costs-request';
 import { SaveEmployeeRequest } from 'src/dtos/requests/save-employee-request';
+import { EmployeeResponse } from 'src/dtos/responses/employee-response';
 import { PreviewEmployeeCostsResponse } from 'src/dtos/responses/preview-employee-costs-response';
 
 /**
@@ -17,6 +18,8 @@ import { PreviewEmployeeCostsResponse } from 'src/dtos/responses/preview-employe
   styleUrls: ['add-employee.component.scss'],
 })
 export class AddEmployeeComponent implements OnInit {
+  employee: EmployeeResponse = {} as EmployeeResponse;
+  isEdit: boolean;
   isLinear = true;
   preview: PreviewEmployeeCostsResponse;
   firstFormGroup: FormGroup;
@@ -27,23 +30,33 @@ export class AddEmployeeComponent implements OnInit {
   ];
   constructor(private _formBuilder: FormBuilder,
     private employeeService: EmployeeService,
-    private router: Router) {}
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    this.isEdit =  this.router.url.startsWith('/edit') ? true : false;
+    const data = this.activatedRoute.snapshot.data;
+
+    if (data.employee) {
+      this.employee = data.employee;
+    }
     this.firstFormGroup = this._formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      firstName: [this.employee.firstName, Validators.required],
+      lastName: [this.employee.lastName, Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       dependents: this._formBuilder.array([])
     });
+    if(this.employee && this.employee.dependents) {
+      this.employee.dependents.forEach(d => this.addDependent(d))
+    }
   }
 
-  addDependent() {
+  addDependent(dependent: DependentDto = {} as DependentDto) {
     let newDependent = this._formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      relation: [null, Validators.required]
+      firstName: [dependent.firstName, Validators.required],
+      lastName: [dependent.lastName, Validators.required],
+      relation: [dependent.relation, Validators.required]
     });
     this.getDependentsArray().push(newDependent)
   }
@@ -76,9 +89,14 @@ export class AddEmployeeComponent implements OnInit {
     if(this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const request = {
         employee: {...this.firstFormGroup.value, ...this.secondFormGroup.value }
-      } as SaveEmployeeRequest;
+      };
       try {
-        await this.employeeService.save(request)
+        if(this.isEdit){
+          await this.employeeService.update(request, this.employee.id);
+        } else {
+          await this.employeeService.save(request);
+        }
+
       } catch (ex) {
         console.error("Failed to save employee!");
         console.error(ex.message);
