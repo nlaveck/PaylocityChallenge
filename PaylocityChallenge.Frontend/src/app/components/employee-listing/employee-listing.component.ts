@@ -20,8 +20,13 @@ export class EmployeeListingComponent implements OnInit {
   constructor(private employeeService: EmployeeService) { }
 
   async ngOnInit(): Promise<void> {
-    const response = await this.employeeService.getEmployees();
-    this.tableData = response.employees;
+    try {
+      const response = await this.employeeService.getEmployees();
+      this.tableData = response.employees;
+    } catch (ex) {
+      console.error("Failed to get employees!");
+      console.error(ex.message);
+    }
   }
 
   getTotal(columnKey: string) {

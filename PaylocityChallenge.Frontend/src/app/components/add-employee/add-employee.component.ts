@@ -61,7 +61,12 @@ export class AddEmployeeComponent implements OnInit {
       const request = {
         employee: {...this.firstFormGroup.value, ...this.secondFormGroup.value }
       } as PreviewEmployeeCostsRequest;
-      this.preview = await this.employeeService.previewCosts(request);
+      try {
+        this.preview = await this.employeeService.previewCosts(request);
+      } catch (ex) {
+        console.error("Failed to get costs preview!");
+        console.error(ex.message);
+      }
     }
   }
 
@@ -75,6 +80,7 @@ export class AddEmployeeComponent implements OnInit {
       try {
         await this.employeeService.save(request)
       } catch (ex) {
+        console.error("Failed to save employee!");
         console.error(ex.message);
         button.disabled = false;
       }
