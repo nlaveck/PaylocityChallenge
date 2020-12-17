@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaylocityChallenge.Core", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaylocityChallenge.Infrastructure", "PaylocityChallenge.Infrastructure\PaylocityChallenge.Infrastructure.csproj", "{BE12B080-7916-4A6A-B66F-F0E806AA17A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaylocityChallenge.Tests", "PaylocityChallenge.Tests\PaylocityChallenge.Tests.csproj", "{B5F809C9-B994-455D-8BAB-178E8F978558}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{BE12B080-7916-4A6A-B66F-F0E806AA17A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE12B080-7916-4A6A-B66F-F0E806AA17A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE12B080-7916-4A6A-B66F-F0E806AA17A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5F809C9-B994-455D-8BAB-178E8F978558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5F809C9-B994-455D-8BAB-178E8F978558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5F809C9-B994-455D-8BAB-178E8F978558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5F809C9-B994-455D-8BAB-178E8F978558}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
