@@ -13,7 +13,6 @@ namespace PaylocityChallenge.Infrastructure.Repositories
 
         Task<Employee> Get(int id);
 
-        Task<Employee> GetWithPay(int id);
         Task SaveChanges();
     }
 }

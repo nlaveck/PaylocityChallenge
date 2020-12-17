@@ -115,7 +115,7 @@ namespace PaylocityChallenge.Api.Controllers
         [HttpPatch("{id:int}")]
         public async Task<ActionResult<EmployeeResponse>> UpdateEmployee(int id, [FromServices] IPayrollService payrollService, [FromBody] SaveEmployeeRequest request)
         {
-            var employee = await _employeeRepository.GetWithPay(id);
+            var employee = await _employeeRepository.Get(id);
             _mapper.Map(request.Employee, employee);
             payrollService.CalculatePay(employee);
             await _employeeRepository.SaveChanges();
