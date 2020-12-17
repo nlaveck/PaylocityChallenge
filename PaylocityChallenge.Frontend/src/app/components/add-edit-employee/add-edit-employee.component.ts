@@ -14,10 +14,10 @@ import { PreviewEmployeeCostsResponse } from 'src/dtos/responses/preview-employe
  */
 @Component({
   selector: 'app-add-employee',
-  templateUrl: 'add-employee.component.html',
-  styleUrls: ['add-employee.component.scss'],
+  templateUrl: 'add-edit-employee.component.html',
+  styleUrls: ['add-edit-employee.component.scss'],
 })
-export class AddEmployeeComponent implements OnInit {
+export class AddEditEmployeeComponent implements OnInit {
   employee: EmployeeResponse = {} as EmployeeResponse;
   isEdit: boolean;
   isLinear = true;

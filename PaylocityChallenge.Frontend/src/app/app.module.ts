@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select'
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { AddEditEmployeeComponent } from './components/add-edit-employee/add-edit-employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -25,7 +25,7 @@ import { EmployeeListingComponent } from './components/employee-listing/employee
 @NgModule({
   declarations: [
     AppComponent,
-    AddEmployeeComponent,
+    AddEditEmployeeComponent,
     EmployeeListingComponent,
   ],
   imports: [

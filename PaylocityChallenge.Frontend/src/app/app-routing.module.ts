@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { AddEditEmployeeComponent } from './components/add-edit-employee/add-edit-employee.component';
 import { EmployeeListingComponent } from './components/employee-listing/employee-listing.component';
 import { EmployeeResolver } from './resolvers/employee-resolver';
 
 const routes: Routes = [
-  { path: 'add-employee', component: AddEmployeeComponent },
+  { path: 'add-employee', component: AddEditEmployeeComponent },
   {
     path: 'edit-employee/:id',
-    component: AddEmployeeComponent,
+    component: AddEditEmployeeComponent,
     resolve: {
       employee: EmployeeResolver
     }
